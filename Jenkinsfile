@@ -12,16 +12,25 @@ pipeline {
         stage('SCM checkout Code') {
             steps {
                 script {
-                    // Checkout code from GitHub
+                    // Handle existing directory
                     sh '''
-                        git config --global user.email "$GIT_USER_EMAIL"
-                        git config --global user.name "$GIT_USER_NAME"
-                        git clone $GIT_REPO topG
-                    '''
-                }
-            }
+                        if [ -d "topG" ]; then
+                            echo "Directory 'topG' already exists. Pulling latest changes."
+                            cd topG
+                            git config --global user.email "$GIT_USER_EMAIL"
+                            git config --global user.name "$GIT_USER_NAME"
+                            git reset --hard
+                            git pull origin $BRANCH
+                        else
+                            echo "Cloning repository."
+                            git config --global user.email "$GIT_USER_EMAIL"
+                            git config --global user.name "$GIT_USER_NAME"
+                            git clone $GIT_REPO topG
+                        fi
+             '''
         }
-
+    }
+}
         stage('Terraform Init & Plan') {
             steps {
                 dir('topG') {
