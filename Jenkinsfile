@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')  // Jenkins AWS Access Key ID Credential
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')  // Jenkins AWS Secret Access Key Credential
-        GIT_REPO = "https://github.com/topGuru77/domino-25.git"
+        GIT_REPO = "https://github.com/topGuru77/ogya_nframa.git"
         BRANCH = "main"
         GIT_USER_NAME = "topGuru77"
         GIT_USER_EMAIL = "kwamenadollar17@yahoo.com"
@@ -49,12 +49,12 @@ pipeline {
             steps {
                 script {
                     // Check if we are in the correct directory after cloning
-                    dir('domino-25') {
+                    dir('topG') {
                         // Add, commit, and push changes to the GitHub repository
                         sh '''
                             git add .
                             git commit -m "Auto commit after Terraform apply" || echo "Nothing to commit"
-                            git push https://$GIT_USER_NAME:$AWS_SECRET_ACCESS_KEY@github.com/topGuru77/domino-25.git $BRANCH
+                            git push https://$GIT_USER_NAME:$AWS_SECRET_ACCESS_KEY@github.com/topGuru77/ogya_nframa.git $BRANCH
                         '''
                     }
                 }
