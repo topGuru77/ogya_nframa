@@ -6,13 +6,13 @@ pipeline {
         BRANCH = "main"
         GIT_USER_NAME = "topGuru77"
         GIT_USER_EMAIL = "kwamenadollar17@yahoo.com"
-        GIT_PAT = credentials('GIT_PAT') // Jenkins credential ID for your GitHub PAT
     }
 
     stages {
-        stage('SCM Checkout Code') {
+        stage('SCM checkout Code') {
             steps {
                 script {
+                    // Checkout code from GitHub
                     sh '''
                         git config --global user.email "$GIT_USER_EMAIL"
                         git config --global user.name "$GIT_USER_NAME"
@@ -44,11 +44,13 @@ pipeline {
         stage('Auto Git Commit & Push') {
             steps {
                 dir('topG') {
-                    sh '''
-                        git add .
-                        git commit -m "Auto commit after Terraform apply" || echo "Nothing to commit"
-                        git push https://$GIT_USER_NAME:$GIT_PAT@github.com/topGuru77/ogya_nframa.git $BRANCH
-                    '''
+                    withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'PAT')]) {
+                        sh '''
+                            git add .
+                            git commit -m "Auto commit after Terraform apply" || echo "Nothing to commit"
+                            git push https://$GIT_USER_NAME:$PAT@github.com/topGuru77/ogya_nframa.git $BRANCH
+                        '''
+                    }
                 }
             }
         }
