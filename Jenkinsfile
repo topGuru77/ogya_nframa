@@ -45,8 +45,20 @@ pipeline {
                             -var "priv_subnet2_az=us-east-1b" \
                             -var "ami=ami-00a929b66ed6e0de6" \
                             -var "key_name=Pekay-keys" \
-                            -var "tag_overlay={\\\"Name\\\":\\\"ASG_network\\\",\\\"Env\\\":\\\"dev\\\",\\\"Project\\\":\\\"ASG\\\",\\\"PM\\\":\\\"top Guru\\\"}"
+                            -var "tag_overlay={\\\"Name\\\":\\\"ASG_network\\\",\\\"Env\\\":\\\"dev\\\",\\\"Project\\\":\\\"ASG\\\",\\\"PM\\\":\\\"top Guru\\\"}" \
+                            -var "vpc_instance_tenancy=default" \
+                            -var "pub_subnet1_cidr_block=10.0.1.0/24" \
+                            -var "pub_subnet2_cidr_block=10.0.2.0/24" \
+                            -var "pub_subnet3_cidr_block=10.0.5.0/24" \
+                            -var "priv_subnet1_cidr_block=10.0.6.0/24" \
+                            -var "priv_subnet2_cidr_block=10.0.7.0/24" \
+                            -var "pub-RT1_cidr_block=0.0.0.0/0" \
+                            -var "pub-RT2_cidr_block=0.0.0.0/0" \
+                            -var "pub-RT3_cidr_block=0.0.0.0/0" \
+                            -var "priv-RT1_cidr_block=10.0.0.0/16" \
+                            -var "priv-RT2_cidr_block=10.0.0.0/16"
                     '''
+                }
                 }
             }
         }
