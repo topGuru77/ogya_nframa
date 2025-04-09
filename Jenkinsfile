@@ -27,10 +27,11 @@ pipeline {
                             git config --global user.name "$GIT_USER_NAME"
                             git clone $GIT_REPO topG
                         fi
-             '''
+                    '''
+                }
+            }
         }
-    }
-}
+
         stage('Terraform Init & Plan') {
             steps {
                 dir('topG') {
@@ -58,7 +59,6 @@ pipeline {
                             -var "priv-RT1_cidr_block=10.0.0.0/16" \
                             -var "priv-RT2_cidr_block=10.0.0.0/16"
                     '''
-                }
                 }
             }
         }
