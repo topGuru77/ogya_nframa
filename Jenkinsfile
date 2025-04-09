@@ -36,7 +36,16 @@ pipeline {
                 dir('topG') {
                     sh '''
                         terraform init
-                        terraform plan -out=tfplan
+                        terraform plan -out=tfplan \
+                            -var "vpc_cidr_block=10.0.0.0/16" \
+                            -var "pub_subnet1_az=us-east-1a" \
+                            -var "pub_subnet2_az=us-east-1b" \
+                            -var "pub_subnet3_az=us-east-1c" \
+                            -var "priv_subnet1_az=us-east-1a" \
+                            -var "priv_subnet2_az=us-east-1b" \
+                            -var "ami=ami-00a929b66ed6e0de6" \
+                            -var "key_name=Pekay-keys" \
+                            -var "tag_overlay={\\\"Name\\\":\\\"ASG_network\\\",\\\"Env\\\":\\\"dev\\\",\\\"Project\\\":\\\"ASG\\\",\\\"PM\\\":\\\"top Guru\\\"}"
                     '''
                 }
             }
